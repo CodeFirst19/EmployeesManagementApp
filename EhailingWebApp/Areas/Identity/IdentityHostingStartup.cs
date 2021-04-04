@@ -19,9 +19,10 @@ namespace EhailingWebApp.Areas.Identity
                 services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlite(
                         context.Configuration.GetConnectionString("ApplicationDbContextConnection")));
+                
+                //services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                //.AddEntityFrameworkStores<ApplicationDbContext>();
 
-                services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
-                    .AddEntityFrameworkStores<ApplicationDbContext>();
             });
         }
     }

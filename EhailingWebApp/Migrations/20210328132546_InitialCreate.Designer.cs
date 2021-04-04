@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EhailingWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210317224556_Initial-Create")]
+    [Migration("20210328132546_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,7 @@ namespace EhailingWebApp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("nvarchar(15)");
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
                         .HasColumnType("TEXT")
@@ -47,7 +47,7 @@ namespace EhailingWebApp.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Gender")
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(100)");
@@ -75,20 +75,20 @@ namespace EhailingWebApp.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Platform")
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<int>("PlatformId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Provice")
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Region")
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<int>("RegionId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<int>("StatusId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("StreetName")
                         .HasColumnType("nvarchar(100)");
@@ -109,7 +109,55 @@ namespace EhailingWebApp.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex");
 
+                    b.HasIndex("PlatformId");
+
+                    b.HasIndex("RegionId");
+
+                    b.HasIndex("StatusId");
+
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("EhailingWebApp.Areas.Identity.Data.Platform", b =>
+                {
+                    b.Property<int>("PlatformId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PlatformName")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("PlatformId");
+
+                    b.ToTable("Platforms");
+                });
+
+            modelBuilder.Entity("EhailingWebApp.Areas.Identity.Data.Region", b =>
+                {
+                    b.Property<int>("RegionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("RegionName")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("RegionId");
+
+                    b.ToTable("Regions");
+                });
+
+            modelBuilder.Entity("EhailingWebApp.Areas.Identity.Data.Status", b =>
+                {
+                    b.Property<int>("StatusId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("StatusName")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("StatusId");
+
+                    b.ToTable("Statuses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -242,6 +290,27 @@ namespace EhailingWebApp.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("EhailingWebApp.Areas.Identity.Data.ApplicationUser", b =>
+                {
+                    b.HasOne("EhailingWebApp.Areas.Identity.Data.Platform", "Platform")
+                        .WithMany("Users")
+                        .HasForeignKey("PlatformId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.HasOne("EhailingWebApp.Areas.Identity.Data.Region", "Region")
+                        .WithMany("Users")
+                        .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.HasOne("EhailingWebApp.Areas.Identity.Data.Status", "Status")
+                        .WithMany("Users")
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

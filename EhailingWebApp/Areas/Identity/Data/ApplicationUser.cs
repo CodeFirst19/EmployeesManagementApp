@@ -19,11 +19,11 @@ namespace EhailingWebApp.Areas.Identity.Data
         public string LastName { get; set; }
 
         [PersonalData]
-        [Column(TypeName = "nvarchar(100)")]
+        [Column(TypeName = "nvarchar(10)")]
         public string Gender { get; set; }
 
         [PersonalData]
-        [Column(TypeName = "nvarchar(15)")]
+        [Column(TypeName = "date")]
         public DateTime DateOfBirth { get; set; }
 
         [PersonalData]
@@ -38,16 +38,17 @@ namespace EhailingWebApp.Areas.Identity.Data
         [Column(TypeName = "nvarchar(100)")]
         public string Provice { get; set; }
 
-        [PersonalData]
-        [Column(TypeName = "nvarchar(100)")]
-        public string Status { get; set; }
+        //Foreign Keys
+        [ForeignKey("Status")]
+        public int StatusId { get; set; }
+        [ForeignKey("Platform")]
+        public int PlatformId { get; set; }
+        [ForeignKey("Region")]
+        public int RegionId { get; set; }
 
-        [PersonalData]
-        [Column(TypeName = "nvarchar(100)")]
-        public string Platform { get; set; }
-
-        [PersonalData]
-        [Column(TypeName = "nvarchar(100)")]
-        public string Region { get; set; }
+        //Reference Navigation properties
+        public Status Status { get; set; }
+        public Platform Platform { get; set; }
+        public Region Region { get; set; }
     }
 }

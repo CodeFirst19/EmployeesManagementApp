@@ -5,7 +5,7 @@
     Layout = "~/Areas/Identity/Pages/_EhailingLayout.cshtml";
 }
 
-<form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+<form asp-route-returnUrl="@Model.ReturnUrl" method="post" autocimplete="off">
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="row">
         <div class="col-md-6">
@@ -23,10 +23,79 @@
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Input.Email"></label>
-        <input asp-for="Input.Email" class="form-control" />
-        <span asp-validation-for="Input.Email" class="text-danger"></span>
+     <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Input.DateOfBirth"></label>
+                <input asp-for="Input.DateOfBirth" class="form-control"/>
+                <span asp-validation-for="Input.DateOfBirth" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Input.Gender"></label>
+                <input asp-for="Input.Gender" class="form-control" />
+                <span asp-validation-for="Input.Gender" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="form-control" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Input.Phone"></label>
+                <input asp-for="Input.Phone" class="form-control" />
+                <span asp-validation-for="Input.Phone" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+     <div class="form-group">
+        <label asp-for="Input.StreetName"></label>
+        <input asp-for="Input.StreetName" class="form-control" />
+        <span asp-validation-for="Input.StreetName" class="text-danger"></span>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Input.City"></label>
+                <input asp-for="Input.City" class="form-control" />
+                <span asp-validation-for="Input.City" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Input.Province"></label>
+                 @Html.DropDownListFor(model => model.Input.Province, new SelectList(Model.Provinces, "Provinces"), "Please select", new {@class="form-control"})
+                <span asp-validation-for="Input.Province" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Input.StatusId"></label>
+                @Html.DropDownListFor(model =>model.Input.StatusId, new SelectList(Model.Statuses, "StatusId", "StatusName"), "Please Select", new {@class="form-control"})
+                <span asp-validation-for="Input.StatusId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="Input.PlatformId"></label>
+                 @Html.DropDownListFor(model => model.Input.PlatformId, new SelectList(Model.Platforms, "PlatformId", "PlatformName"), "Please Select", new {@class="form-control"})
+                <span asp-validation-for="Input.PlatformId" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+     <div class="form-group">
+        <label asp-for="Input.RegionId"></label>
+         @Html.DropDownListFor(model => model.Input.RegionId, new SelectList(Model.Regions, "RegionId", "RegionName"), "Please select", new {@class="form-control"})
+        <span asp-validation-for="Input.RegionId" class="text-danger"></span>
     </div>
     <div class="row">
         <div class="col-md-6">
@@ -44,7 +113,7 @@
             </div>
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">Register</button>
+    <button type="submit" class="btn btn-primary btn-block">Register</button>
 </form>
 
 @section Scripts {

@@ -1,0 +1,68 @@
+﻿@model IEnumerable<EhailingWebApp.Areas.Identity.Data.ApplicationUser>
+
+
+<br/>
+<div class="container row p-0 m-0">
+    <div class="col-md-8 p-0">
+        <h3 class="text-info">Employees (@Model.Count())</h3>
+    </div>
+    <div class="col-md-4 p-0">
+        <form method="GET" asp-controller="Administration" asp-action="Index" autocomplete="off">
+            <div class="input-group mb-3">
+                 <input type="text" name="SearchString" class="form-control" placeholder="Search">
+                 <div class="input-group-append">
+                     <button class="btn btn-info" type="submit">
+                        <i class="fa fa-search" aria-hidden="true">
+                        </i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-12 border p-3 rounded mt-3">
+        <form method="POST">
+            @if(Model.Count() > 0)
+            {
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                       <th>Name</th>
+                       <th>Surname</th>
+                       <th>View</th>
+                       <th>Make Admin</th>
+                       <th>Delete</th>
+                    </tr>
+                    @foreach(var user in Model)
+                    {
+                       <tr>
+                           <td>@user.FirstName</td>
+                           <td>@user.LastName</td>
+                           <td>
+                               <a href"#" class="btn btn-info btn-sm text-white" onclick="Details(`@user.Id`, `@user.FirstName @user.LastName`)">
+                                  <i class="fa fa-eye" aria-hidden="true"></i> View User
+                               </a> 
+                           </td>
+                           <td>
+                              <a href"#" class="btn btn-info btn-sm text-white" onclick="Administrator(`@user.Id`, `@user.FirstName`)">
+                                  <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                   Make Admin
+                               </a>
+                           </td>
+                            <td>
+                              <a href"#" class="btn btn-danger btn-sm text-white" onclick="Administrator(`@user.Id`, `@user.FirstName`)">
+                                  <i class="fa fa-trash" aria-hidden="true"></i>
+                                   Delete
+                               </a>
+                           </td>
+                      </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>No user found.</p>
+            }
+        </form>
+    </div>
+</div>
+
+

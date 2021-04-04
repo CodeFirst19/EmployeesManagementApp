@@ -1,0 +1,67 @@
+﻿@model EhailingWebApp.Areas.Identity.Data.ApplicationUser
+@{
+    int age = DateTime.Now.Year - Model.DateOfBirth.Year;
+}
+
+<div class="text-center py-3"><i class="fas fa-user-circle fa-9x text-secondary"></i></div>
+
+<div class="row">
+<div class="col-12 text-center py-2">
+   @if(Model.Platform.PlatformName == "Both")
+    {
+         <h4> I am an Uber and a Bolt @Model.Status.StatusName around  @Model.Region.RegionName region.</h4>   
+    }
+    else if(Model.Platform.PlatformName == "Uber")
+    {
+         <h4> I am an @Model.Platform.PlatformName @Model.Status.StatusName around  @Model.Region.RegionName region.</h4>
+    }
+    else if(Model.Platform.PlatformName == "Bolt")
+    {
+         <h4> I am a @Model.Platform.PlatformName @Model.Status.StatusName around  @Model.Region.RegionName region.</h4>
+    }
+    else
+    {
+        <h4> I am an (@Model.Status.StatusName) @Model.Status.StatusName around  @Model.Region.RegionName region.</h4>
+    }
+</div>
+   <div class="col-md-6 mb-2">
+       <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+          </div>
+          <input asp-for="Email" class='form-control' disabled>
+        </div>
+        <div class="input-group my-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
+          </div>
+          <input asp-for="Gender" class='form-control' disabled>
+        </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-address-card" aria-hidden="true"></i></span>
+          </div>
+          <input asp-for="StreetName" class='form-control' disabled>
+        </div>
+   </div>
+   <div class="col-md-6">
+       <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-phone fa-rotate-90" aria-hidden="true"></i></span>
+          </div>
+          <input asp-for="PhoneNumber" class='form-control' disabled>
+        </div>
+        <div class="input-group my-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+          </div>
+          <input asp-for="@age" class='form-control' disabled>
+        </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-address-card" aria-hidden="true"></i></span>
+          </div>
+          <input  asp-for="City" class='form-control' disabled>
+        </div>
+   </div> 
+</div>
