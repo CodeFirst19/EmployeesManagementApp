@@ -27,8 +27,9 @@
                     <tr class="table-secondary">
                        <th>Name</th>
                        <th>Surname</th>
-                       <th>View</th>
-                       <th>Make Admin</th>
+                       <th>Status</th>
+                       <th>Platform</th>
+                       <th>Details</th>
                        <th>Delete</th>
                     </tr>
                     @foreach(var user in Model)
@@ -36,19 +37,15 @@
                        <tr>
                            <td>@user.FirstName</td>
                            <td>@user.LastName</td>
+                           <td>@user.Status.StatusName</td>
+                           <td>@user.Platform.PlatformName</td>
                            <td>
                                <a href"#" class="btn btn-info btn-sm text-white" onclick="Details(`@user.Id`, `@user.FirstName @user.LastName`)">
-                                  <i class="fa fa-eye" aria-hidden="true"></i> View User
+                                  <i class="fa fa-eye" aria-hidden="true"></i> View
                                </a> 
                            </td>
-                           <td>
-                              <a href"#" class="btn btn-info btn-sm text-white" onclick="Administrator(`@user.Id`, `@user.FirstName`)">
-                                  <i class="fa fa-user-plus" aria-hidden="true"></i>
-                                   Make Admin
-                               </a>
-                           </td>
                             <td>
-                              <a href"#" class="btn btn-danger btn-sm text-white" onclick="Administrator(`@user.Id`, `@user.FirstName`)">
+                              <a href"#" class="btn btn-danger btn-sm text-white" onclick="ConfirmDelete(`@user.Id`, `@user.FirstName`)">
                                   <i class="fa fa-trash" aria-hidden="true"></i>
                                    Delete
                                </a>
@@ -61,6 +58,7 @@
             {
                 <p>No user found.</p>
             }
+            <input type="hidden" id="hiddenUserId"/>
         </form>
     </div>
 </div>

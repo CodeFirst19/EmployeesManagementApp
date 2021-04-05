@@ -50,5 +50,18 @@ namespace EhailingWebApp.Controllers
 
             return PartialView("_UserDetails", user);
         }
+
+        public async Task<IActionResult> Delete(string Id)
+        {
+            var user = await _db.Users.FindAsync(Id);
+            
+            if(user != null)
+            {
+                _db.Users.Remove(user);
+                await _db.SaveChangesAsync();
+            }
+
+            return View(Users);
+        }
     }
 }

@@ -27,7 +27,6 @@ namespace EhailingWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.Message = "";
                 var roleExists = await _roleManager.RoleExistsAsync(model.RoleName);
 
                 if (roleExists)

@@ -18,17 +18,25 @@ var Details = function (Id, userDetails) {
     })
 }
 
-var Administrator = function (Id, userName) {
+var ConfirmDelete = function (id, username) {
+    $('#hiddenUserId').val(id)
+    $('#details-modal-title').html("Delete Employee");
+    $('#modal-admin-body').html("Are you sure you want to permanently delete " + username + "?");
+    $('#set-admin-modal').modal('show');   
+}
+
+var DeleteEmployee = function () {
+    var Id = $('#hiddenUserId').val()
 
     $.ajax({
         type: "POST",
-        url: "/Administration/Details",
+        url: "/Administration/Delete",
         data: { Id: Id },
         success: function (response) {
-            $('#modal-admin-body').html("Are you sure you want to set " + userName + " as administrator?");
-            $('#details-modal-title').html("Make " + userName + " Admin?");
-            $('#set-admin-modal').modal('show');
+            $('#details-modal').modal('hide');
         }
 
     })
 }
+
+   

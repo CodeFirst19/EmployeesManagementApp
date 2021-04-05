@@ -20,8 +20,8 @@ namespace EhailingWebApp.Areas.Identity
                     options.UseSqlite(
                         context.Configuration.GetConnectionString("ApplicationDbContextConnection")));
                 
-                //services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
-                //.AddEntityFrameworkStores<ApplicationDbContext>();
+                services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             });
         }
