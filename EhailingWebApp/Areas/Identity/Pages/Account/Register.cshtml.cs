@@ -114,7 +114,6 @@ namespace EhailingWebApp.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
         }
 
-        public IEnumerable<string> Provinces { get; set; }
         public IEnumerable<Status> Statuses { get; set; }
         public IEnumerable<Platform> Platforms { get; set; }
         public IEnumerable<Region> Regions { get; set; }
@@ -126,7 +125,6 @@ namespace EhailingWebApp.Areas.Identity.Pages.Account
                 Response.Redirect("/");
             }
 
-            Provinces = new List<string> { "Gauteng", "Western Cape", "KwaZulu Natal", "North West", "Free State", "Northern Cape", "Mpumalanga", "Limpopo", "Eastern Cape"};
             Statuses = await _db.Statuses.ToListAsync();
             Platforms = await _db.Platforms.ToListAsync();
             Regions = await _db.Regions.ToListAsync();
@@ -141,7 +139,8 @@ namespace EhailingWebApp.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, 
+                var user = new ApplicationUser { 
+                    UserName = Input.Email, 
                     Email = Input.Email, 
                     FirstName = Input.FirstName, 
                     LastName = Input.LastName, 

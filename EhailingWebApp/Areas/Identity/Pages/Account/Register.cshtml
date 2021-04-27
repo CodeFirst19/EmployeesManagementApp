@@ -34,7 +34,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label asp-for="Input.Gender"></label>
-                <input asp-for="Input.Gender" class="form-control" />
+                 @Html.DropDownListFor(model => model.Input.Gender, new SelectList(new [] {"Male","Female"}), "Please select", new {@class="form-control"})
                 <span asp-validation-for="Input.Gender" class="text-danger"></span>
             </div>
         </div>
@@ -71,7 +71,8 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label asp-for="Input.Province"></label>
-                 @Html.DropDownListFor(model => model.Input.Province, new SelectList(Model.Provinces, "Provinces"), "Please select", new {@class="form-control"})
+                 @Html.DropDownListFor(model => model.Input.Province, new SelectList(new[] { "Gauteng", "Western Cape", "KwaZulu Natal", 
+                     "North West", "Free State", "Northern Cape", "Mpumalanga", "Limpopo", "Eastern Cape"}), "Please select", new {@class="form-control"})
                 <span asp-validation-for="Input.Province" class="text-danger"></span>
             </div>
         </div>

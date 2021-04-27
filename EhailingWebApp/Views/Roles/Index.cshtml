@@ -1,14 +1,20 @@
-﻿@model EhailingWebApp.ViewModels.Roles.Role
+﻿@using Microsoft.AspNetCore.Identity
+@using EhailingWebApp.Areas.Identity.Data
+
+@model IEnumerable<EhailingWebApp.Areas.Identity.Data.ApplicationUser>
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
     
 <br/>
-<div class="container p-0 m-0">
+@*<div class="container p-0 m-0">
     <div class="col-md-6">
-         <form method="POST" asp-action="CreateRole" autocomplete="off">
-                @if(Model.Message != "")
+         <form method="POST" asp-action="Index" autocomplete="off">
+                @if(ViewBag.Message != null)
                  {
                     <div class="alert alert-danger" role="alert">
                         <i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i>
-                        @Model.Message
+                        @ViewBag.Message
                      </div>
                  }
                 <h3 class="text-info">Create New Role</h3>
@@ -25,5 +31,102 @@
                 </div>
             </form>
     </div>
+</div>*@
+
+
+<br/>
+<div class="container row p-0 m-0">
+    <div class="col-md-8 p-0">
+        <h3 class="text-info">Assign Or Remove Admin Roles</h3>
+    </div>
+    <div class="col-md-4 p-0">
+        <form method="GET" asp-controller="Roles" asp-action="Index" autocomplete="off">
+            <div class="input-group mb-3">
+                 <input type="text" name="SearchString" class="form-control" placeholder="Search">
+                 <div class="input-group-append">
+                     <button class="btn btn-info" type="submit">
+                        <i class="fa fa-search" aria-hidden="true">
+                        </i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-12 border p-3 rounded mt-3">
+        <form method="POST">
+           @if(ViewBag.Code != null && ViewBag.Response !=null){
+                @if(ViewBag.Code == '1')
+                {
+                   <div class="alert alert-success" role="alert">
+                       <i class="fas fa-check text-success"></i>
+                       @ViewBag.Response
+                    </div>
+                }
+                else if(ViewBag.Code == '2')
+                {
+                   <div class="alert alert-danger" role="alert">
+                       <i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i>
+                       @ViewBag.Response
+                    </div>
+                }
+           }
+            @if(Model.Count() > 0)
+            {
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                       <th>Names</th>
+                       <th>Status</th>
+                       <th>Platform</th>
+                       <th>Assign</th>
+                       <th>Remove</th>
+                    </tr>
+                    @foreach(var user in Model)
+                    {
+                       <tr>
+                           <td>@user.FirstName @user.LastName</td>
+                           <td>@user.Status.StatusName</td>
+                           <td>@user.Platform.PlatformName</td>
+                           <td>
+                              @if(await UserManager.IsInRoleAsync(user, "Administrator"))
+                              {
+                                  <a href"#" class="btn btn-info btn-sm text-white disabled" onclick="ConfirmAssignRole(`@user.Id`, `@user.FirstName @user.LastName`)">
+                                       <i class="fa fa-ban" aria-hidden="true"></i> Assign
+                                  </a> 
+                              }
+                              else
+                              {
+                                  <a href"#" class="btn btn-info btn-sm text-white" onclick="ConfirmAssignRole(`@user.Id`, `@user.FirstName @user.LastName`)">
+                                        <i class="fa fa-tasks" aria-hidden="true"></i> Assign
+                                  </a>    
+                              }
+                           </td>
+                            <td>
+                                @if(!await UserManager.IsInRoleAsync(user, "Administrator"))
+                              {
+                                   <a href"#" class="btn btn-danger btn-sm text-white disabled" onclick="ConfirmRemoveRole(`@user.Id`, `@user.FirstName @user.LastName`)">
+                                       <i class="fa fa-ban" aria-hidden="true"></i>  Remove  
+                                   </a>
+                              }
+                              else
+                              {
+                                   <a href"#" class="btn btn-danger btn-sm text-white" onclick="ConfirmRemoveRole(`@user.Id`, `@user.FirstName @user.LastName`)">
+                                        <i class="fas fa-minus-circle"></i> Remove   
+                                   </a>
+                              }
+                           </td>
+                       </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>No user found.</p>
+            }
+            <input type="hidden" id="hiddenUserId"/>
+        </form>
+    </div>
 </div>
+
+
+
 

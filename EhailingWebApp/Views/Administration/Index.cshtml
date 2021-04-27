@@ -25,8 +25,7 @@
             {
                 <table class="table table-striped border">
                     <tr class="table-secondary">
-                       <th>Name</th>
-                       <th>Surname</th>
+                       <th>Names</th>
                        <th>Status</th>
                        <th>Platform</th>
                        <th>Details</th>
@@ -35,8 +34,7 @@
                     @foreach(var user in Model)
                     {
                        <tr>
-                           <td>@user.FirstName</td>
-                           <td>@user.LastName</td>
+                           <td>@user.FirstName @user.LastName</td>
                            <td>@user.Status.StatusName</td>
                            <td>@user.Platform.PlatformName</td>
                            <td>

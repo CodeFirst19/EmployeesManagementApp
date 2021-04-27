@@ -23,7 +23,13 @@
     {
         <h4> I am an (@Model.Status.StatusName) @Model.Status.StatusName around  @Model.Region.RegionName region.</h4>
     }
-</div>
+    <style>
+        span{
+            width:40px;
+        }
+
+    </style>
+</div id="user-card">
    <div class="col-md-6 mb-2">
        <div class="input-group">
           <div class="input-group-prepend">
@@ -39,9 +45,21 @@
         </div>
         <div class="input-group">
           <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fa fa-address-card" aria-hidden="true"></i></span>
+            <span class="input-group-text"><i class="fas fa-street-view"></i></span>
           </div>
           <input asp-for="StreetName" class='form-control' disabled>
+        </div>
+         <div class="input-group my-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-globe"></i></span>
+          </div>
+          <input asp-for="Provice" class='form-control' disabled>
+        </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
+          </div>
+          <input asp-for="Status.StatusName" class='form-control' disabled>
         </div>
    </div>
    <div class="col-md-6">
@@ -62,6 +80,18 @@
             <span class="input-group-text"><i class="fa fa-address-card" aria-hidden="true"></i></span>
           </div>
           <input  asp-for="City" class='form-control' disabled>
+        </div>
+        <div class="input-group my-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-car"></i></span>
+          </div>
+          <input  asp-for="Platform.PlatformName" class='form-control' disabled>
+        </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-city"></i></span>
+          </div>
+          <input  asp-for="Region.RegionName" class='form-control' disabled>
         </div>
    </div> 
 </div>

@@ -3,7 +3,8 @@
 
 // Write your JavaScript code.
 
- 
+
+//View employee details
 var Details = function (Id, userDetails) {
     $.ajax({
         type: "POST",
@@ -18,13 +19,16 @@ var Details = function (Id, userDetails) {
     })
 }
 
+//Confirm deleting employee
 var ConfirmDelete = function (id, username) {
     $('#hiddenUserId').val(id)
-    $('#details-modal-title').html("Delete Employee");
-    $('#modal-admin-body').html("Are you sure you want to permanently delete " + username + "?");
-    $('#set-admin-modal').modal('show');   
+    $('#delete-user-modal-title').html("Delete Employee");
+    $('#delete-user-modal-body').html("Are you sure you want to permanently delete " + username + "?");
+    $('#delete-employee-modal').modal('show');   
 }
 
+
+//Delete employee if confirmed
 var DeleteEmployee = function () {
     var Id = $('#hiddenUserId').val()
 
@@ -32,8 +36,62 @@ var DeleteEmployee = function () {
         type: "POST",
         url: "/Administration/Delete",
         data: { Id: Id },
-        success: function (response) {
-            $('#details-modal').modal('hide');
+        success: function (respose) {
+            $('#delete-employee-modal').modal('hide');
+            var result = respose;
+            window.location.href = "/Administration/Index?Response=" + result;
+        }
+
+    })
+}
+
+//Confirm assigning admin role to employee
+var ConfirmAssignRole = function (id, username) {
+    $('#hiddenUserId').val(id)
+    $('#assign-role-modal-title').html("Make Employee Admin");
+    $('#assign-role-modal-body').html("Do you want to assign admin rights to " + username + "?");
+    $('#assign-role-modal').modal('show');
+}
+
+//Assign admin role to employee if confirmed
+var AssignRole = function () {
+    var Id = $('#hiddenUserId').val()
+
+    $.ajax({
+        type: "POST",
+        url: "/Roles/AssignRole",
+        data: { Id: Id },
+        success: function (respose) {
+            $('#assign-role-modal').modal('hide');
+            var result = respose;
+            window.location.href = "/Roles/Index?Response=" + result;
+           
+        }
+
+    })
+    //$('#assign-role-modal').modal('hide');
+}
+//Confirm removing admin role to employee
+var ConfirmRemoveRole = function (id, username) {
+    $('#hiddenUserId').val(id)
+    $('#remove-role-modal-title').html("Remove Admin Rights From Employee");
+    $('#remove-role-modal-body').html("Are you sure want to remove admin rights from " + username + "?");
+    $('#remove-role-modal').modal('show');
+}
+
+//Remove admin role from employee if confirmed
+var RemoveRole = function () {
+    var Id = $('#hiddenUserId').val()
+
+    $.ajax({
+        type: "POST",
+        url: "/Roles/RemoveRole",
+        data: { Id: Id },
+        success: function (respose) {
+            $('#remove-role-modal').modal('hide');
+            var result = respose;
+            window.location.href = "/Roles/Index?Response=" + result;
+            
         }
 
     })

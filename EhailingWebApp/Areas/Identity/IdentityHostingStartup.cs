@@ -21,6 +21,7 @@ namespace EhailingWebApp.Areas.Identity
                         context.Configuration.GetConnectionString("ApplicationDbContextConnection")));
                 
                 services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             });

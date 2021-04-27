@@ -10,6 +10,5 @@ namespace EhailingWebApp.ViewModels.Roles
     {
         [Required]
         public string RoleName { get; set; }
-        public string Message { get; set; }
     }
 }

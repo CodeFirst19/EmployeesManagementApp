@@ -1,5 +1,6 @@
 ﻿using EhailingWebApp.Areas.Identity.Data;
 using EhailingWebApp.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace EhailingWebApp.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class AdministrationController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -20,7 +22,7 @@ namespace EhailingWebApp.Controllers
 
         public IEnumerable<ApplicationUser> Users { get; set; }
      
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, string Response= null)
         {
             Users = await _db.Users
                 .Include(u => u.Status)
@@ -35,6 +37,15 @@ namespace EhailingWebApp.Controllers
                 || s.Status.StatusName.Contains(searchString) 
                 || s.Platform.PlatformName.Contains(searchString) 
                 || s.Region.RegionName.Contains(searchString));
+            }
+
+            if (Response != null)
+            {
+                int i = Response.Length - 1;
+                string response = Response.Remove(i, 1);
+                ViewBag.Code = Response[i];
+                ViewBag.Response = response;
+
             }
 
             return View(Users);
@@ -59,9 +70,11 @@ namespace EhailingWebApp.Controllers
             {
                 _db.Users.Remove(user);
                 await _db.SaveChangesAsync();
+
+                return Json($"{user.FirstName} {user.LastName} has successfully been deleted.1");
             }
 
-            return View(Users);
+            return Json("Oops! Employee could not be found.2");
         }
     }
 }
